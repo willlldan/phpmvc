@@ -2,13 +2,13 @@
 
 class Mahasiswa_model
 {
-   private $table = 'mahasiswa';
-   private $db;
+    private $table = 'mahasiswa';
+    private $db;
 
-   public function __construct()
-   {
-       $this->db = new Database; 
-   }
+    public function __construct()
+    {
+        $this->db = new Database;
+    }
 
     public function getAllMahasiswa()
     {
@@ -16,7 +16,8 @@ class Mahasiswa_model
         return $this->db->resultSet();
     }
 
-    public function getMahasiswaById($id) {
+    public function getMahasiswaById($id)
+    {
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id');
         $this->db->bind('id', $id);
         return $this->db->single();
@@ -75,10 +76,14 @@ class Mahasiswa_model
 
     public function cariDataMahasiswa()
     {
-        $keyword = $_POST['keyword'];
-        $query = "SELECT * FROM mahasiswa Where nama LIKE :keyword";
-        $this->db->query($query);
-        $this->db->bind('keyword', "%$keyword%");
-        return $this->db->resultSet();
+        if (empty($_POST['keyword'])) {
+            header('Location:' . BASEURL . '/mahasiswa');
+        } else {
+            $keyword = $_POST['keyword'];
+            $query = "SELECT * FROM mahasiswa Where nama LIKE :keyword";
+            $this->db->query($query);
+            $this->db->bind('keyword', "%$keyword%");
+            return $this->db->resultSet();
+        }
     }
 }
