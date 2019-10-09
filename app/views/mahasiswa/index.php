@@ -31,6 +31,9 @@
     <div class="col-lg-6">
       <h3>Daftar Mahasiswa</h3>
       <ul class="list-group">
+        <?php if (empty($data['mhs'])) {
+          echo "<h4>Data Mahasiswa Tidak Ditemukan<h4>";
+        } ?>
         <?php foreach ($data['mhs'] as $mhs) : ?>
           <li class="list-group-item">
             <?= $mhs['nama']; ?>
@@ -38,7 +41,7 @@
             <a href="<?= BASEURL; ?>/mahasiswa/ubah/<?= $mhs['id'] ?>" class="badge badge-success float-right ml-1 tampilModalUbah" data-toggle="modal" data-target="#formModal" data-id="<?= $mhs['id'] ?>"> ubah </a>
             <a href="<?= BASEURL; ?>/mahasiswa/detail/<?= $mhs['id'] ?>" class="badge badge-primary float-right ml-1"> detail </a>
           </li>
-        <?php endforeach; ?>
+        <?php endforeach;?>
       </ul>
     </div>
   </div>
